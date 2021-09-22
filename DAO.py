@@ -42,3 +42,27 @@ class DaoSell:
         for i in cls.sell:
             sale.append(Sell(Products(i[0], i[1], i[2]), i[3], i[4], i[5]))  # Parâmetros de acordo com a ordem da lista
         return sale
+
+
+class DaoInventory:
+    @classmethod
+    def save(cls, product: Products, quantity):
+        with open('inventory.txt', 'a') as arq:
+            arq.writelines(product.name + '|' + product.price + '|' + product.category + '|' +
+                           str(quantity))
+            arq.writelines('\n')
+
+    @classmethod
+    def read(cls):
+        with open('inventory.txt', 'r') as arq:
+            cls.inventory = arq.readlines()
+
+        cls.inventory = list(map(lambda x: x.replace('\n', ''), cls.inventory))
+        cls.inventory = list(map(lambda x: x.split('|'), cls.inventory))
+
+        inv = []
+        if len(cls.inventory) > 0:
+            for i in cls.inventory:
+                inv.append(Inventory(Products(i[0], i[1], i[2]), i[3]))
+
+        return inv
