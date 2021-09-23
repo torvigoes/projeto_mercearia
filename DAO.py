@@ -1,5 +1,6 @@
 from Models import *
 
+
 class DaoCategory:
     @classmethod
     def save(cls, category):
@@ -27,7 +28,8 @@ class DaoSell:
         with open('sell.txt', 'a') as arq:
             arq.writelines(sell.itemsSold.name + '|' + sell.itemsSold.price + '|' +
                            sell.itemsSold.category + '|' + sell.seller + '|' + sell.buyer + '|' +
-                           str(sell.quantitySold) + '|' + sell.date)  # quantitySold convertida para string, pois na controller será int e sem conversão não concatenará.
+                           str(sell.quantitySold) + '|' + sell.date)  # quantitySold convertida para string, pois
+            # na controller será int e sem conversão não concatenará.
             arq.writelines('\n')
 
     @classmethod
@@ -36,12 +38,14 @@ class DaoSell:
             cls.sell = arq.readlines()
 
         cls.sell = list(map(lambda x: x.replace('\n', ''), cls.sell))  # Aqui cada posição da lista será uma venda
-        cls.sell = list(map(lambda x: x.split('|'), cls.sell))  # Criando uma lista para cada venda, ou seja, uma lista dentro da lista.
+        cls.sell = list(map(lambda x: x.split('|'), cls.sell))  # Criando uma lista para cada venda, ou seja,
+        # uma lista dentro da lista.
 
-        sale = []
+        sel = []
         for i in cls.sell:
-            sale.append(Sell(Products(i[0], i[1], i[2]), i[3], i[4], i[5]))  # Parâmetros de acordo com a ordem da lista
-        return sale
+            sel.append(Sell(Products(i[0], i[1], i[2]), i[3], i[4], i[5]))  # Parâmetros de acordo com a ordem da
+            # lista
+        return sel
 
 
 class DaoInventory:
@@ -66,3 +70,26 @@ class DaoInventory:
                 inv.append(Inventory(Products(i[0], i[1], i[2]), i[3]))
 
         return inv
+
+
+class DaoProvider:
+    @classmethod
+    def save(cls, provider: Provider):
+        with open('provider.txt', 'a') as arq:
+            arq.writelines(provider.nameCompany + '|' + provider.cnpj + '|' + provider.phoneNumber + '|' +
+                           provider.category)
+            arq.writelines('\n')
+
+    @classmethod
+    def read(cls):
+        with open('provider.txt', 'r') as arq:
+            cls.provider = arq.readlines()
+
+        cls.provider = list(map(lambda x: x.replace('\n', ''), cls.provider))
+        cls.provider = list(map(lambda x: x.split('|'), cls.provider))
+
+        provi = []
+        for i in cls.provider:
+            provi.append(Provider(i[0], i[1], i[2], i[3]))
+
+        return provi
