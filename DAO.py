@@ -116,3 +116,21 @@ class DaoPeople:
             peop.append(People(i[0], i[1], i[2], i[3], i[4]))
 
         return peop
+
+
+class DaoEmployee:
+    @classmethod
+    def save(cls, employee: Employee):
+        with open('employee.txt', 'a') as arq:
+            arq.writelines(employee.clt + '|' + employee.nameClient + '|' + employee.phoneClient + '|' +
+                           employee.cpf + '|' + employee.email + '|' + employee.adress)
+            arq.writelines('\n')
+
+        cls.employee = list(map(lambda x: x.replace('\n', ''), cls.employee))
+        cls.employee = list(map(lambda x: x.split('|'), cls.employee))
+
+        emplo = []
+        for i in cls.employee:
+            emplo.append(Employee(i[0], i[1], i[2], i[3], i[4], i[5]))
+
+        return emplo
