@@ -93,3 +93,26 @@ class DaoProvider:
             provi.append(Provider(i[0], i[1], i[2], i[3]))
 
         return provi
+
+
+class DaoPeople:
+    @classmethod
+    def save(cls, people: People):
+        with open('clients.txt', 'a') as arq:
+            arq.writelines(people.nameClient + '|' + people.phoneClient + '|' + people.cpf + '|' + people.email + '|' +
+                           people.adress)
+            arq.writelines('\n')
+
+    @classmethod
+    def read(cls):
+        with open('clients.txt', 'r') as arq:
+            cls.people = arq.readlines()
+
+        cls.people = list(map(lambda x: x.replace('\n', ''), cls.people))
+        cls.people = list(map(lambda x: x.split('|'), cls.people))
+
+        peop = []
+        for i in cls.people:
+            peop.append(People(i[0], i[1], i[2], i[3], i[4]))
+
+        return peop
