@@ -19,18 +19,18 @@ class ControllerCategory:
 
     def removeCategory(self, removedCategory):
         x = DaoCategory.read()
-        cat = list(filter(lambda x: x.category == removedCategory, x))
+        cat = list(filter(lambda x: x.category == removedCategory, x))  # Filtrando se existe a categoria para remover
 
         if len(cat) <= 0:
             print('A categoria que deseja remover não existe!')
         else:
             for i in range(len(x)):
                 if x[i].category == removedCategory:
-                    del x[i]
+                    del x[i]  # Deletando a categoria da memória RAM
                     break
             print('Categoria removida com sucesso!')
 
-            with open('category.txt', 'w') as arq:
+            with open('category.txt', 'w') as arq:  # Reescrevendo o arquivo sem a categoria deletada
                 for i in x:
                     arq.writelines(i.category)
                     arq.writelines('\n')
