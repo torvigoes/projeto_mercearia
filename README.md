@@ -1,1 +1,1 @@
-# Projeto de um Software para gerenciamento de uma mercearia
+# Projeto de Software para gerenciamento de uma mercearia
