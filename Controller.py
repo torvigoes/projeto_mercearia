@@ -34,3 +34,24 @@ class ControllerCategory:
                 for i in x:
                     arq.writelines(i.category)
                     arq.writelines('\n')
+
+    def modifyCategory(self, changeCategory, changedCategory):
+        x = DaoCategory.read()
+        cat = list(filter(lambda x: x.category == changeCategory, x))
+
+        if len(cat) > 0:
+            changed_cats = list(filter(lambda x: x.category == changedCategory, x))
+            if len(changed_cats) == 0:
+                x = list(map(lambda x: Category(changedCategory) if(x.category == changeCategory) else x, x))
+                print('Alteração efetuada com sucesso!')
+
+            else:
+                print('A categoria para qual deseja alterar já existe!')
+
+        else:
+            print('A categoria que deseja alterar não existe!')
+
+        with open('category.txt', 'w') as arq:
+            for i in x:
+                arq.writelines(i.category)
+                arq.writelines('\n')
