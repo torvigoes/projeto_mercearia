@@ -37,12 +37,12 @@ class ControllerCategory:
 
     def modifyCategory(self, changeCategory, changedCategory):
         x = DaoCategory.read()
-        cat = list(filter(lambda x: x.category == changeCategory, x))
+        cat = list(filter(lambda x: x.category == changeCategory, x))  # Checando se a categoria para alteração existe
 
         if len(cat) > 0:
-            changed_cats = list(filter(lambda x: x.category == changedCategory, x))
+            changed_cats = list(filter(lambda x: x.category == changedCategory, x))  # Checando se a categoria para qual será alterada já existe
             if len(changed_cats) == 0:
-                x = list(map(lambda x: Category(changedCategory) if(x.category == changeCategory) else x, x))
+                x = list(map(lambda x: Category(changedCategory) if(x.category == changeCategory) else x, x))  # Alterando somente a categoria desejada, para a categoria referida
                 print('Alteração efetuada com sucesso!')
 
             else:
