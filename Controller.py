@@ -55,3 +55,11 @@ class ControllerCategory:
             for i in x:
                 arq.writelines(i.category)
                 arq.writelines('\n')
+
+    def showCategory(self):
+        category = DaoCategory.read()
+        if len(category) == 0:
+            print('Categoria vazia!')
+        else:
+            for i in category:
+                print(f'Categoria: {i.category}')
