@@ -104,7 +104,7 @@ class ControllerInventory:
         else:
             print('O produto que deseja remover não existe!')
 
-        
+
         with open('inventory.txt', 'w') as arq:
             for i in x:
                 arq.writelines(i.product.name + '|' + i.product.price + '|' + i.product.category + '|' +
