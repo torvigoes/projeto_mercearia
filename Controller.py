@@ -30,6 +30,8 @@ class ControllerCategory:
                     break
             print('Categoria removida com sucesso!')
 
+        #TODO: COLOCAR SEM CATEGORIA NO ESTOQUE
+
             with open('category.txt', 'w') as arq:  # Reescrevendo o arquivo sem a categoria deletada
                 for i in x:
                     arq.writelines(i.category)
@@ -44,6 +46,8 @@ class ControllerCategory:
             if len(changed_cats) == 0:
                 x = list(map(lambda x: Category(changedCategory) if(x.category == changeCategory) else x, x))  # Alterando somente a categoria desejada, para a categoria referida
                 print('Alteração efetuada com sucesso!')
+
+                #TODO: ALTERAR A CATEGORIA TAMBÉM DO ESTOQUE
 
             else:
                 print('A categoria para qual deseja alterar já existe!')
