@@ -67,3 +67,23 @@ class ControllerCategory:
         else:
             for i in category:
                 print(f'Categoria: {i.category}')
+
+class ControllerInventory:
+    def registerProduct(self, name, price, category, quantity):
+
+        x = DaoInventory.read()
+        y = DaoCategory.read()
+
+        read_category = list(filter(lambda x: x.category == category, y))  # y é o parâmetro passado para o filter, que ira checar a variável
+        read_name = list(filter(lambda x: x.product.name == name, x))
+
+        if len(read_category) > 0: #  Checando se a categoria existe
+            if len(read_name) == 0:  #  Caso a categoria exista, e o produto ainda não exista
+                product = Products(name, price, category)
+                DaoInventory.save(product, quantity)
+                print('Produto cadastrado com sucesso!')
+
+            else:
+                print('Produto já existe em estoque!')
+        else:
+            print('Categoria inexistente!')
