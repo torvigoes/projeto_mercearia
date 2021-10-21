@@ -74,11 +74,11 @@ class ControllerInventory:
         x = DaoInventory.read()
         y = DaoCategory.read()
 
-        read_category = list(filter(lambda x: x.category == category, y))  # y é o parâmetro passado para o filter, que ira checar a variável
-        read_name = list(filter(lambda x: x.product.name == name, x))
+        filter_category = list(filter(lambda x: x.category == category, y))  # y é o parâmetro passado para o filter, que ira checar a variável
+        filter_name = list(filter(lambda x: x.product.name == name, x))
 
-        if len(read_category) > 0: #  Checando se a categoria existe
-            if len(read_name) == 0:  #  Caso a categoria exista, e o produto ainda não exista
+        if len(filter_category) > 0: #  Checando se a categoria existe
+            if len(filter_name) == 0:  #  Caso a categoria exista, e o produto ainda não exista
                 product = Products(name, price, category)
                 DaoInventory.save(product, quantity)
                 print('Produto cadastrado com sucesso!')
@@ -87,3 +87,26 @@ class ControllerInventory:
                 print('Produto já existe em estoque!')
         else:
             print('Categoria inexistente!')
+
+    def removeProduct(self, name):
+
+        x = DaoInventory.read()
+
+        filter_product = list(filter(lambda x: x.product.name == name, x))  # Procurando um produto com este nome
+
+        if len(filter_product) > 0:
+            for i in range(len(x)):
+                if x[i].product.name == name:
+                    del x[i]
+                    break
+            print('O produto foi removido com sucesso!')
+
+        else:
+            print('O produto que deseja remover não existe!')
+
+        
+        with open('inventory.txt', 'w') as arq:
+            for i in x:
+                arq.writelines(i.product.name + '|' + i.product.price + '|' + i.product.category + '|' +
+                               str(i.quantity))
+                arq.writelines('\n')
