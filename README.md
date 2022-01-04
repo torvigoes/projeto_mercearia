@@ -2,5 +2,5 @@
 
 
 
-Software sem interface, rodando vida console, para administração de uma mercearia.
+Software sem interface, rodando via console, para administração de uma mercearia.
 
